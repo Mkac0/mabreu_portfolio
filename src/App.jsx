@@ -8,7 +8,7 @@ const App = () => {
   return (
     <div className='container'>
       <h1>Melissa Abreu</h1>
-      <h3>Software Engineer</h3>
+      <h3>Software Developer</h3>
       <hr />
     </div>
   );

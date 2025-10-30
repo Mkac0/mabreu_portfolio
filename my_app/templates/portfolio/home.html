@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Featured Projects - Melissa Abreu{% endblock title %}
+
+{% block content %}
+    <section id="hero">
+        <h1>Melissa Abreu</h1>
+        <p>My brain is wired for systems thinking.</p>
+    </section>
+
+    <section id="featured-projects">
+        <h2>Featured Projects</h2>
+        {% if projects %}
+            {% for project in projects %}
+                <div class="project-card">
+                    <h3>{{ project.title }}</h3>
+                    {% if project.image %}
+                        <img src="{{ project.image.url }}" alt="Screenshot of {{ project.title }}">
+                    {% endif %}
+                    <p>{{ project.description|truncatewords:30 }}</p>
+                    <a href="{% url 'project_detail' project.slug %}">View Details</a> 
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>Projects go here.</p>
+        {% endif %}
+    </section>
+
+{% endblock content %}

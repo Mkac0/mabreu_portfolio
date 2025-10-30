@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ project.title }} - Project Details{% endblock title %}
+
+{% block content %}
+    <article class="project-detail">
+        <h1>{{ project.title }}</h1>
+        {% if project.image %}
+            <img src="{{ project.image.url }}" alt="{{ project.title }} Screenshot" class="project-main-image">
+        {% endif %}
+        <div class="project-metadata">
+            <p><strong>Completed:</strong> {{ project.date_completed|date:"F j, Y" }}</p>
+            <div class="project-links">
+                <a href="{{ project.github_url }}" target="_blank" class="button">
+                    View on GitHub
+                </a>
+                {% if project.live_url %}
+                    <a href="{{ project.live_url }}" target="_blank" class="button primary">
+                        Live Demo
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+        
+        <hr>
+        
+        <section class="project-description">
+            <h2>About {{ project.title }}</h2>
+            <p>{{ project.description|safe|linebreaksbr }}</p>
+        </section>
+        <p class="back-link">
+            <a href="{% url 'home' %}">&larr; Back to Featured Projects</a>
+        </p>
+    </article>
+
+{% endblock content %}

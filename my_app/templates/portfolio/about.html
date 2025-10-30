@@ -1,8 +1,59 @@
-{% extends 'base.html' %} 
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}About Me & Skills - Melissa Abreu{% endblock title %}
+
 {% block content %}
-<h1>About Me</h1>
-<hr />
-<p class="page-content">
-    Softwate Engineer
-</p>
-{% endblock %}
+    <section id="about-me">
+        <h1>About Me</h1>
+        <div class="bio-text">
+            <h3>My brain is wired for systems thinking.</h3>
+            <p>
+                As a dyslexic coder, reading and writing can take more effort — but that challenge gave me a superpower. When I recently started coding, I struggled with syntax and documentation. But over time, I noticed something: while others focused on every line, I was drawn to the bigger picture — how systems fit together, where logic breaks down, and how to simplify complexity.
+                Dyslexia trained me to see patterns, think spatially, and solve problems creatively. And those skills? I believe they’re gold in software development. Many dyslexic tech leaders — like Richard Branson and David Baszucki (creator of Roblox) — have said the same: dyslexia helped them think differently, focusing less on memorization and more on innovation.
+            </p>
+            <p>
+                I’ve been focused on full-stack projects using JavaScript, React, Node.js, SQL, and Python. I love turning ideas into real, working products—especially when I get to bridge the gap between technical solutions and real-world business needs.
+                I’m always looking to learn, grow, and connect with others who are passionate about tech, data, and problem-solving.
+            </p>
+            <a href="{% url 'resume' %}" class="button primary">View Full Résumé</a>
+        </div>
+    </section>
+
+    <hr>
+    
+    <section id="skills">
+        <h2>My Technical Skills</h2>
+        {% if categorized_skills %}
+            <div class="skills-container">
+                {% for category, skills_list in categorized_skills.items %}
+                    <div class="skill-category">
+                        <h3>{{ category }}</h3>
+                        
+                        <ul>
+                            {% for skill in skills_list %}
+                                <li>
+                                    {{ skill.name }} 
+                                    {% if skill.proficiency %}
+                                        <span class="skill-level" title="Proficiency: {{ skill.proficiency }}/5">
+                                            {% for i in "12345"|make_list %}
+                                                {% if forloop.counter <= skill.proficiency %}
+                                                    ★
+                                                {% else %}
+                                                    ☆
+                                                {% endif %}
+                                            {% endfor %}
+                                        </span>
+                                    {% endif %}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>No skills found yet!</p>
+        {% endif %}
+    </section>
+
+{% endblock content %}

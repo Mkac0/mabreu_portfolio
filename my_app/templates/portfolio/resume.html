@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Résumé - Melissa Abreu{% endblock title %}
+
+{% block content %}
+    <section id="resume-header">
+        <h1>Résumé</h1>
+        <p>A detailed overview of my professional experience, education, and technical skills.</p>
+        <a href="{% static 'docs/melissa_abreu_resume.pdf' %}" target="_blank" class="button primary">
+            Download PDF Résumé
+        </a>
+    </section>
+
+    <hr>
+
+    <section id="work-experience">
+        <h2>Professional Experience</h2>
+        {% if experiences %}
+            {% for experience in experiences %}
+                <div class="experience-entry">
+                    <h3>{{ experience.title }}</h3>
+                    <h4>{{ experience.company }} | {{ experience.location }}</h4>
+                    <span class="dates">
+                        {{ experience.start_date|date:"F Y" }} - 
+                        {% if experience.end_date %}
+                            {{ experience.end_date|date:"F Y" }}
+                        {% else %}
+                            Present
+                        {% endif %}
+                    </span>
+                    <div class="description">
+                        {{ experience.description|linebreaksbr }}
+                    </div>
+                </div>
+                {% if not forloop.last %}<hr class="experience-divider">{% endif %}
+            {% endfor %}
+        {% else %}
+            <p>No work experience added yet!</p>
+        {% endif %}
+    </section>
+    <section id="education">
+        <h2>Education</h2>
+        <div class="education-entry">
+            <h3>[Your Degree]</h3>
+            <h4>[University Name] | [City, State]</h4>
+            <span class="dates">[Start Year] - [End Year]</span>
+            <p>Relevant coursework: [List topics]</p>
+        </div>
+    </section>
+
+{% endblock content %}

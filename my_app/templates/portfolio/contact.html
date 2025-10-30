@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Contact Me - Melissa Abreu{% endblock title %}
+
+{% block content %}
+    <section id="contact-page">
+        <h1>Get in Touch</h1>
+        <p>I'm always open to new opportunities, collaborations, and conversations about tech. Feel free to send me a message!</p>
+        {% if error_message %}
+            <p class="error-message">{{ error_message }}</p>
+        {% endif %}
+        <form method="POST" action="{% url 'contact' %}" class="contact-form">
+            {% csrf_token %}
+            {% if form.non_field_errors %}
+                <div class="error-list">
+                    {% for error in form.non_field_errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            <div class="form-field">
+                {{ form.name.label_tag }}
+                {{ form.name }}
+                {% for error in form.name.errors %}<p class="field-error">{{ error }}</p>{% endfor %}
+            </div>
+            <div class="form-field">
+                {{ form.email.label_tag }}
+                {{ form.email }}
+                {% for error in form.email.errors %}<p class="field-error">{{ error }}</p>{% endfor %}
+            </div>
+            <div class="form-field">
+                {{ form.subject.label_tag }}
+                {{ form.subject }}
+                {% for error in form.subject.errors %}<p class="field-error">{{ error }}</p>{% endfor %}
+            </div>
+            <div class="form-field">
+                {{ form.message.label_tag }}
+                {{ form.message }}
+                {% for error in form.message.errors %}<p class="field-error">{{ error }}</p>{% endfor %}
+            </div>
+            
+            <button type="submit" class="button submit-button">Send Message</button>
+        </form>
+
+        <hr>
+
+        <section id="direct-contact">
+            <h2>Direct Contact Information</h2>
+            <p><strong>Email:</strong> <a href="mailto:melissa.abreu84@gmail.com">melissa.abreu84@gmail.com</a></p>
+            <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/melissaabreu-profile" target="_blank">linkedin.com/in/melissaabreu-profile</a></p>
+        </section>
+
+    </section>
+{% endblock content %}

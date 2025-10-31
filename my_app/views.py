@@ -6,19 +6,21 @@ from .forms import ContactForm
 from django.shortcuts import render, redirect
 
 def home(request):
-    if request.method == 'POST':
-        form = ContactForm(request.POST)
-        if form.is_valid():
-            try:
-                messages.success(request, 'Thank you for your message! I will be in touch soon.')
-                return redirect('home')
-            except Exception as e:
-                messages.error(request, 'Sorry, there was an error sending your message. Please try again or email directly.')
-    else:
-        form = ContactForm()
+    """Fetches all necessary data for the single-page home layout."""
+    featured_projects = Project.objects.filter(is_featured=True).order_by('-date_completed')
+    skills = Skill.objects.all().order_by('category', 'name')
+    categorized_skills = {}
+    for skill in skills:
+        category = skill.category
+        if category not in categorized_skills:
+            categorized_skills[category] = []
+        categorized_skills[category].append(skill)
+    experiences = Experience.objects.all().order_by('-start_date')
     context = {
-        'page_title': 'Melissa Abreu - Portfolio',
-        'form': form,
+        'page_title': 'Developer Portfolio - Home',
+        'projects': featured_projects,
+        'categorized_skills': categorized_skills,
+        'experiences': experiences,
     }
     return render(request, 'portfolio/home.html', context)
 
@@ -26,12 +28,10 @@ def about(request):
     """Fetches skills and displays them alongside about me content."""
     skills = Skill.objects.all().order_by('category', '-proficiency')
     categorized_skills = {}
-    
     for skill in skills:
         category_name = skill.get_category_display()
         if category_name not in categorized_skills:
             categorized_skills[category_name] = []
-        
         categorized_skills[category_name].append(skill)    
     context = {
         'page_title': 'About Me & Skills',

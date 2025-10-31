@@ -1,71 +1,144 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
+{% block title %}{{ page_title }}{% endblock title %}
+
 {% block content %}
-    <section id="hero" class="py-5">
-        <div class="container text-center">
-            <h1 class="display-4">Melissa Abreu</h1>
-            <p class="lead">Full-Stack Developer</p>
-        </div>
-    </section>
-    <section id="about-me" class="py-5 bg-light">
+    <section id="about" class="py-5">
         <div class="container">
-            <h2>About Me</h2>
-        </div>
-    </section>
-    <section id="technical-skills" class="py-5">
-        <div class="container">
-            <h2>Technical Skills</h2>
-        </div>
-    <section id="projects" class="py-5">
-        <div class="container">
-            <h2>Featured Work</h2>
-        </div>
-    </section>
-    <section id="experience" class="py-5 bg-light">
-        <div class="container">
-            <h2>Work Experience</h2>
-        </div>
-    </section>
-    <section id="contact" class="py-5">
-        <div class="container">
-            <h2 class="text-center mb-4">Contact Me</h2>
-            <p class="text-center">I'm always open to new opportunities. Send me a message, and I'll get back to you promptly!</p>
-            {% if messages %}
-                <div class="mb-4">
-                {% for message in messages %}
-                    <div class="alert alert-{{ message.tags }}" role="alert">
-                        {{ message }}
+            <h1 class="text-center mb-5 display-4">Melissa Abreu</h1>
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-4">
+                    <img src="{% static 'images/profile.jpg' %}" alt="Melissa Abreu Profile" class="img-fluid rounded shadow-lg mb-4" style="max-width: 300px;">
+                    <div class="bio-text">
+                        <h3>My brain is wired for systems thinking.</h3>
+                        <p>
+                            As a dyslexic coder, reading and writing can take more effort — but that challenge gave me a superpower. When I recently started coding, I struggled with syntax and documentation. But over time, I noticed something: while others focused on every line, I was drawn to the bigger picture — how systems fit together, where logic breaks down, and how to simplify complexity.
+                            Dyslexia trained me to see patterns, think spatially, and solve problems creatively. And those skills? I believe they’re gold in software development. Many dyslexic tech leaders — like Richard Branson and David Baszucki (creator of Roblox) — have said the same: dyslexia helped them think differently, focusing less on memorization and more on innovation.
+                        </p>
+                        <p>
+                            I’ve been focused on full-stack projects using JavaScript, React, Node.js, SQL, and Python. I love turning ideas into real, working products—especially when I get to bridge the gap between technical solutions and real-world business needs.
+                            I’m always looking to learn, grow, and connect with others who are passionate about tech, data, and problem-solving.
+                        </p>
+                        <a href="{% url 'contact' %}" class="btn btn-primary mt-3">Let's Connect &rarr;</a>
                     </div>
-                {% endfor %}
                 </div>
-            {% endif %}
-            <div class="row justify-content-center">
-                <div class="col-lg-8">
-                    <form method="POST" action="{% url 'home' %}#contact">
-                        {% csrf_token %}
-                        
-                        {% for field in form %}
-                            <div class="mb-3">
-                                <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
-                                {{ field }}
-                                
-                                {% for error in field.errors %}
-                                    <div class="text-danger small">{{ error }}</div>
-                                {% endfor %}
-                            </div>
-                        {% endfor %}
-                        {% if form.non_field_errors %}
-                            <div class="alert alert-danger">
-                                {% for error in form.non_field_errors %}
-                                    {{ error }}
-                                {% endfor %}
-                            </div>
+                <div class="col-lg-6">
+                    <section id="skills" class="p-4 border rounded shadow-sm">
+                        <h2 class="mb-4 text-primary">Technical Skills</h2>
+                        {% if categorized_skills %}
+                            {% for category, skills_list in categorized_skills.items %}
+                                <div class="skill-category mb-4">
+                                    <h5 class="text-secondary border-bottom pb-1">{{ category }}</h5>
+                                    <div class="d-flex flex-wrap">
+                                        {% for skill in skills_list %}
+                                            <span class="badge rounded-pill bg-info text-dark me-2 mb-2 p-2">
+                                                {{ skill.name }}
+                                            </span>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            <p>No skills found yet!</p>
                         {% endif %}
-                        <button type="submit" class="btn btn-primary btn-lg">Send Message</button>
-                    </form>
+                    </section>
                 </div>
             </div>
         </div>
     </section>
 
+    <hr>
+
+    <section id="projects" class="py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center mb-5">Featured Projects</h2>
+            {% if projects %}
+                <div class="row">
+                    {% for project in projects %}
+                        <div class="col-12 col-md-6 col-lg-4 mb-4">
+                            <div class="card h-100 shadow-sm project-card">
+                                {% if project.image %}
+                                    <img src="{{ project.image.url }}" class="card-img-top" alt="{{ project.title }}">
+                                {% endif %}
+                                <div class="card-body d-flex flex-column">
+                                    <h5 class="card-title">{{ project.title }}</h5>
+                                    <p class="card-text">{{ project.description|truncatewords:20 }}</p>
+                                    <div class="mt-auto">
+                                        <a href="{% url 'project_detail' project.slug %}" class="btn btn-sm btn-primary">Details</a>
+                                        <a href="{{ project.github_url }}" target="_blank" class="btn btn-sm btn-outline-secondary">GitHub</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="text-center mt-4">
+                    <a href="{% url 'projects' %}" class="btn btn-lg btn-secondary">View All Projects &rarr;</a>
+                </div>
+            {% else %}
+                <p class="lead text-center">No featured projects found yet.</p>
+            {% endif %}
+        </div>
+    </section>
+
+    <hr>
+
+    <section id="experience" class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-5">Professional Experience</h2>
+            {% if experiences %}
+                <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                        {% for experience in experiences %}
+                            <div class="card mb-4 shadow-sm experience-entry">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-4 text-md-end border-end">
+                                            <p class="mb-0 text-primary fw-bold">
+                                                {{ experience.start_date|date:"F Y" }} - 
+                                                {% if experience.end_date %}{{ experience.end_date|date:"F Y" }}{% else %}Present{% endif %}
+                                            </p>
+                                            <p class="mb-0 text-muted small">{{ experience.company }}</p>
+                                        </div>
+                                        <div class="col-md-8 ps-md-4">
+                                            <h4 class="card-title mt-2 mt-md-0">{{ experience.title }}</h4>
+                                            <div class="description text-secondary">
+                                                {{ experience.description|linebreaksbr }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% else %}
+                <p class="lead text-center">No professional experience added yet.</p>
+            {% endif %}
+            <div class="text-center mt-4">
+                <a href="{% url 'resume' %}" class="btn btn-lg btn-secondary">View Full Résumé &rarr;</a>
+            </div>
+        </div>
+    </section>
+
+    <hr>
+
+    <section id="contact" class="py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center mb-4">Get in Touch</h2>
+            
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    {% include 'portfolio/contact.html' %} 
+                    
+                    <section id="direct-contact" class="text-center mt-5">
+                        <h3 class="mb-3">Direct Information</h3>
+                        <p><strong>Email:</strong> <a href="mailto:melissa.abreu84@gmail.com" class="text-decoration-none">melissa.abreu84@gmail.com</a></p>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </section>
 {% endblock content %}

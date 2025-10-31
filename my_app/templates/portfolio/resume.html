@@ -1,51 +1,63 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Résumé - Melissa Abreu{% endblock title %}
+{% block title %}Work Experience & Résumé - Melissa Abreu{% endblock title %}
 
 {% block content %}
-    <section id="resume-header">
-        <h1>Résumé</h1>
-        <p>A detailed overview of my professional experience, education, and technical skills.</p>
-        <a href="{% static 'docs/melissa_abreu_resume.pdf' %}" target="_blank" class="button primary">
-            Download PDF Résumé
-        </a>
+    <section id="resume-header" class="py-5 bg-light">
+        <div class="container text-center">
+            <h1 class="display-4">My Professional Experience</h1>
+            <p class="lead text-muted">A detailed overview of my career milestones and technical contributions.</p>
+            <a href="{% static 'docs/melissa_abreu_resume.pdf' %}" target="_blank" class="btn btn-primary mt-3">
+                <i class="fas fa-download me-2"></i> Download PDF Résumé
+            </a>
+        </div>
     </section>
-
-    <hr>
-
-    <section id="work-experience">
-        <h2>Professional Experience</h2>
-        {% if experiences %}
-            {% for experience in experiences %}
-                <div class="experience-entry">
-                    <h3>{{ experience.title }}</h3>
-                    <h4>{{ experience.company }} | {{ experience.location }}</h4>
-                    <span class="dates">
-                        {{ experience.start_date|date:"F Y" }} - 
-                        {% if experience.end_date %}
-                            {{ experience.end_date|date:"F Y" }}
-                        {% else %}
-                            Present
-                        {% endif %}
-                    </span>
-                    <div class="description">
-                        {{ experience.description|linebreaksbr }}
+    <section id="work-experience" class="py-5">
+        <div class="container">
+            <h2 class="mb-4">Work History</h2>
+            {% if experiences %}
+                <div class="row">
+                    <div class="col-lg-10 offset-lg-1">
+                        {% for experience in experiences %}
+                            <div class="card mb-4 shadow-sm experience-entry">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-4 text-md-end border-end">
+                                            <p class="mb-0 text-primary fw-bold">
+                                                {{ experience.start_date|date:"F Y" }} - 
+                                                {% if experience.end_date %}
+                                                    {{ experience.end_date|date:"F Y" }}
+                                                {% else %}
+                                                    Present
+                                                {% endif %}
+                                            </p>
+                                            <p class="mb-0 text-muted small">{{ experience.company }} | {{ experience.location }}</p>
+                                        </div>
+                                        <div class="col-md-8 ps-md-4">
+                                            <h4 class="card-title mt-2 mt-md-0">{{ experience.title }}</h4>
+                                            <div class="description text-secondary">
+                                                {{ experience.description|linebreaksbr }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
                     </div>
                 </div>
-                {% if not forloop.last %}<hr class="experience-divider">{% endif %}
-            {% endfor %}
-        {% else %}
-            <p>No work experience added yet!</p>
-        {% endif %}
+            {% else %}
+                <p class="lead text-center">No professional experience added yet.</p>
+            {% endif %}
+        </div>
     </section>
-    <section id="education">
-        <h2>Education</h2>
-        <div class="education-entry">
-            <h3>[Your Degree]</h3>
-            <h4>[University Name] | [City, State]</h4>
-            <span class="dates">[Start Year] - [End Year]</span>
-            <p>Relevant coursework: [List topics]</p>
+    <section id="education" class="py-5 bg-light">
+        <div class="container">
+            <h2 class="mb-4">Education</h2>
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    </div>
+            </div>
         </div>
     </section>
 

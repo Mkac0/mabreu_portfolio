@@ -1,37 +1,40 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}{{ project.title }} - Project Details{% endblock title %}
+{% block title %}{{ page_title }}{% endblock title %}
 
 {% block content %}
-    <article class="project-detail">
-        <h1>{{ project.title }}</h1>
-        {% if project.image %}
-            <img src="{{ project.image.url }}" alt="{{ project.title }} Screenshot" class="project-main-image">
-        {% endif %}
-        <div class="project-metadata">
-            <p><strong>Completed:</strong> {{ project.date_completed|date:"F j, Y" }}</p>
-            <div class="project-links">
-                <a href="{{ project.github_url }}" target="_blank" class="button">
-                    View on GitHub
-                </a>
-                {% if project.live_url %}
-                    <a href="{{ project.live_url }}" target="_blank" class="button primary">
-                        Live Demo
-                    </a>
-                {% endif %}
-            </div>
+    <section id="all-projects" class="py-5">
+        <div class="container">
+            <h1 class="text-center mb-5">All Projects</h1>
+            {% if all_projects %} 
+                <div class="row">
+                {% for project in all_projects %}
+                    <div class="col-12 col-md-6 col-lg-4 mb-4">
+                        <div class="card h-100 shadow-sm project-card">
+                            {% if project.image %}
+                                <img src="{{ project.image.url }}" class="card-img-top" alt="{{ project.title }} Screenshot">
+                            {% endif %}
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title">{{ project.title }}</h5>
+                                <p class="card-text text-muted small">{{ project.date_completed|date:"F Y" }}</p>
+                                <p class="card-text">{{ project.description|truncatewords:20 }}</p>
+                                <div class="mt-auto">
+                                    <a href="{% url 'project_detail' project.slug %}" class="btn btn-sm btn-primary">
+                                        View Details
+                                    </a>
+                                    <a href="{{ project.github_url }}" target="_blank" class="btn btn-sm btn-outline-secondary">
+                                        GitHub
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                </div>
+            {% else %}
+                <p class="lead text-center">No projects found yet! Please add some in the Admin area.</p>
+            {% endif %}
         </div>
-        
-        <hr>
-        
-        <section class="project-description">
-            <h2>About {{ project.title }}</h2>
-            <p>{{ project.description|safe|linebreaksbr }}</p>
-        </section>
-        <p class="back-link">
-            <a href="{% url 'home' %}">&larr; Back to Featured Projects</a>
-        </p>
-    </article>
-
+    </section>
 {% endblock content %}

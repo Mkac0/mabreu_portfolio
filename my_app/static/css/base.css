@@ -1,6 +1,25 @@
+:root {
+    --primary-color: #007bff;
+    --secondary-color: #6c757d;
+    --bg-light: #f8f9fa;
+    --font-heading: 'Roboto', sans-serif; 
+    --font-body: 'Open Sans', sans-serif;
+}
 body {
-    font-family: sans-serif;
-    padding: 20px;
+    font-family: var(--font-body);
+    color: #212529;
+    padding-top: 56px;
+}
+a, button {
+    transition: all 0.3s ease;
+}
+h1, h2, h3, h4 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+}
+
+h1 {
+    color: var(--primary-color);
 }
 header {
     border-bottom: 1px solid #ccc;
@@ -9,4 +28,110 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+.navbar {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.navbar-brand {
+    font-weight: 800;
+    font-size: 1.5rem;
+    color: #fff !important;
+}
+.nav-link {
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.75) !important;
+    margin-left: 15px;
+}
+.nav-link:hover {
+    color: #fff !important;
+}
+section {
+    padding: 80px 0;
+}
+.project-card {
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+.project-card img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+    margin-bottom: 15px;
+}
+.project-card h3 {
+    color: var(--primary-color);
+    font-size: 1.5rem;
+}
+.project-card p {
+    color: #495057;
+    font-size: 1rem;
+    margin-bottom: 15px;
+}
+.project-card a {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+.project-card a:hover {
+    text-decoration: underline;
+}
+.skill-category {
+    margin-bottom: 30px;
+}
+.skill-category h3 {
+    color: var(--secondary-color);
+    border-bottom: 2px solid #e9ecef;
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+}
+.skill-category ul {
+    list-style-type: none;
+    padding-left: 0;
+    display: flex;
+    flex-wrap: wrap;
+}
+.skill-category li {
+    background-color: var(--bg-light);
+    border: 1px solid #ced4da;
+    border-radius: 20px;
+    padding: 5px 15px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+}
+footer {
+    background-color: #343a40;
+    color: #adb5bd;
+    padding: 20px 0;
+    text-align: center;
+    margin-top: 40px;
+}
+footer a {
+    color: #adb5bd;
+    margin: 0 10px;
+}
+footer a:hover {
+    color: #fff;
+}
+.experience-entry .card {
+    border-left: 5px solid var(--primary-color);
+}
+.badge {
+    font-weight: 500;
+    font-size: 0.9em;
+}
+.bg-info {
+    background-color: #78daee !important;
+}
+@media (max-width: 767.98px) {
+    .experience-entry .border-end {
+        border-right: none !important;
+        border-bottom: 1px solid #dee2e6;
+        margin-bottom: 10px;
+        padding-bottom: 10px;
+        text-align: left !important;
+    }
 }

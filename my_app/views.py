@@ -86,6 +86,7 @@ def contact(request):
                     ['melissa.abreu84@gmail.com'],
                     fail_silently=False,
                 )
+                messages.success(request, 'Thank you! Your message has been sent successfully.')
                 return redirect('home') 
             
             except Exception as e:

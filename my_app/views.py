@@ -1,13 +1,24 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Project, Skill, Experience
 from django.core.mail import send_mail
+from django.contrib import messages
 from .forms import ContactForm
+from django.shortcuts import render, redirect
 
 def home(request):
-    featured_projects = Project.objects.filter(is_featured=True).order_by('-date_completed')
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            try:
+                messages.success(request, 'Thank you for your message! I will be in touch soon.')
+                return redirect('home')
+            except Exception as e:
+                messages.error(request, 'Sorry, there was an error sending your message. Please try again or email directly.')
+    else:
+        form = ContactForm()
     context = {
-        'page_title': 'Developer Portfolio - Home',
-        'projects': featured_projects,
+        'page_title': 'Melissa Abreu - Portfolio',
+        'form': form,
     }
     return render(request, 'portfolio/home.html', context)
 

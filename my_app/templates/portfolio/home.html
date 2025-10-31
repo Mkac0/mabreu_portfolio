@@ -1,32 +1,68 @@
 {% extends 'base.html' %}
-{% load static %}
-
-{% block title %}Featured Projects - Melissa Abreu{% endblock title %}
 
 {% block content %}
-    <section id="hero">
-        <h1>Melissa Abreu</h1>
-        <p>My brain is wired for systems thinking.</p>
+    <section id="hero" class="py-5">
+        <div class="container text-center">
+            <h1 class="display-4">Hi, I'm Melissa Abreu</h1>
+            <p class="lead">Full-Stack Developer Specializing in Python & Django.</p>
+        </div>
     </section>
-
-    <section id="featured-projects">
-        <h2>Featured Projects</h2>
-        {% if projects %}
-            {% for project in projects %}
-                <div class="project-card">
-                    <h3>{{ project.title }}</h3>
-                    {% if project.image %}
-                        <img src="{{ project.image.url }}" alt="Screenshot of {{ project.title }}">
-                    {% endif %}
-                    <p>{{ project.description|truncatewords:30 }}</p>
-                    <a href="{% url 'project_detail' project.slug %}" class="view-details-link">
-                        View Details &rarr;
-                    </a>
+    <section id="about-me" class="py-5 bg-light">
+        <div class="container">
+            <h2>About Me</h2>
+            <h3 class="mt-4">Technical Skills</h3>
+            </div>
+    </section>
+    <section id="projects" class="py-5">
+        <div class="container">
+            <h2>Featured Work</h2>
+            </div>
+    </section>
+    <section id="experience" class="py-5 bg-light">
+        <div class="container">
+            <h2>Work Experience</h2>
+            </div>
+    </section>
+    <section id="contact" class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-4">Contact Me</h2>
+            <p class="text-center">I'm always open to new opportunities. Send me a message, and I'll get back to you promptly!</p>
+            {% if messages %}
+                <div class="mb-4">
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}" role="alert">
+                        {{ message }}
+                    </div>
+                {% endfor %}
                 </div>
-            {% endfor %}
-        {% else %}
-            <p>Projects go here.</p>
-        {% endif %}
+            {% endif %}
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <form method="POST" action="{% url 'home' %}#contact">
+                        {% csrf_token %}
+                        
+                        {% for field in form %}
+                            <div class="mb-3">
+                                <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+                                {{ field }}
+                                
+                                {% for error in field.errors %}
+                                    <div class="text-danger small">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                        {% endfor %}
+                        {% if form.non_field_errors %}
+                            <div class="alert alert-danger">
+                                {% for error in form.non_field_errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        <button type="submit" class="btn btn-primary btn-lg">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </section>
 
 {% endblock content %}

@@ -1,43 +1,44 @@
+/* --- 1. Variables and Global Reset --- */
 :root {
-    --bs-primary: #00ADB5;
-    --bs-secondary: #393E46;
-    --bs-light: #EEEEEE;
-    --bs-info: #00ADB5;
-    --bs-body-color: #222831;
+    /* Updated Dark Theme Palette */
+    --color-background: #222831; /* Deep Charcoal - Main Background */
+    --color-primary: #00ADB5;     /* Vibrant Teal - Accent/Link */
+    --color-secondary: #393E46;   /* Dark Slate - Card Background/Hover */
+    --color-text-light: #EEEEEE;  /* Off-White - Main Text */
+    --color-text-muted: #A9A9A9;  /* Gray - Muted Text */
+    --bs-body-bg: var(--color-background);
+    --bs-body-color: var(--color-text-light);
+    --bs-primary: var(--color-primary);
+    --bs-secondary: var(--color-secondary);
+    --bs-light: var(--color-text-light);
 }
+
 html {
     scroll-behavior: smooth;
 }
+
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-    color: var(--bs-body-color);
-    padding-top: 56px;
+    font-family: 'Poppins', sans-serif; /* Use the new font */
+    color: var(--color-text-light);
+    background-color: var(--color-background);
+    padding-top: 56px; 
 }
-a, button {
-    transition: all 0.3s ease;
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 600; /* Slightly less heavy heading */
+    color: var(--color-text-light);
 }
-h1, h2, h3, h4 {
+
+h1, h2, h3 {
     font-weight: 700;
+    letter-spacing: 0.5px;
+}
+p, li {
+    line-height: 1.75;
+    font-weight: 300;
 }
 
-h1 {
-    color: var(--bs-primary);
-}
-
-.navbar {
-    background-color: var(--bs-body-color) !important;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s ease;
-}
-.navbar .navbar-brand,
-.navbar .nav-link {
-    color: var(--bs-light) !important;
-    transition: color 0.3s ease;
-    font-weight: 500;
-}
-.navbar .nav-link:hover {
-    color: var(--bs-primary) !important;
-}
+/* --- 2. Navigation Styling (Minimalist) --- */
 
 header {
     background-color: transparent; 
@@ -46,93 +47,229 @@ header {
     width: 100%;
 }
 
-header .navbar.sticky-top { 
-    background-color: var(--bs-body-color) !important;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s ease;
+.navbar {
+    background-color: var(--color-background) !important;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4); /* Subtle dark shadow */
+    border-bottom: 1px solid var(--color-secondary);
+    backdrop-filter: saturate(120%) blur(4px);
+}
+
+:focus-visible { outline: 2px dashed var(--color-primary); outline-offset: 2px; }
+
+.navbar .navbar-brand,
+.navbar .nav-link {
+    color: var(--color-text-light) !important;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.navbar .nav-link:hover {
+    color: var(--color-primary) !important;
+}
+
+/* --- 3. Section and Content Styling --- */
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: none; }
 }
 
 section {
-    padding: 80px 0;
+  opacity: 1;                /* visible by default */
+  transform: none;
+  animation: fadeUp .6s ease both;
 }
+
+section:nth-of-type(2) { animation-delay: .08s; }
+section:nth-of-type(3) { animation-delay: .16s; }
+section:nth-of-type(4) { animation-delay: .24s; }
+
+section.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Hero Section Typography */
+#about h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: var(--color-primary); /* Highlight name */
+}
+#about p {
+    color: var(--color-text-muted);
+}
+#about img {
+    border: 5px solid var(--color-primary);
+    box-shadow: 0 0 30px rgba(0, 173, 181, 0.25);
+    border-radius: 50%; /* Circular image for a softer look */
+}
+
+/* --- 4. Skills and Project Cards (Minimalist/Flat) --- */
 
 .project-card {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border: none;
-    border-radius: 0.5rem;
-    overflow: hidden;
-    background-color: #fff; 
+    background-color: var(--color-secondary);
+    border-radius: 1rem;
+    transition: all 0.3s ease-in-out;
 }
+
 .project-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15) !important;
+    transform: translateY(-10px);
+    box-shadow: 0 0 25px rgba(0, 173, 181, 0.2);
 }
+
+.project-card img {
+    border-bottom: 1px solid var(--color-primary);
+    transition: opacity 0.3s ease-in-out;
+}
+
+.project-card:hover img {
+    opacity: 0.8;
+}
+
 .project-card h3 {
-    color: var(--bs-primary);
+    color: var(--color-text-light);
     font-size: 1.5rem;
 }
-.project-card a {
-    color: var(--bs-primary);
+.project-card p {
+    color: var(--color-text-muted);
+}
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+/* Skill Badges */
+.badge.bg-info {
+    background-color: var(--color-primary) !important;
+    color: var(--color-background) !important; /* Dark text on bright badge */
     font-weight: 600;
 }
-
 .skill-category h5 {
-    color: var(--bs-secondary);
-    border-bottom: 2px solid #e9ecef;
-    padding-bottom: 5px;
-    margin-bottom: 15px;
-}
-.badge {
-    font-weight: 500;
-    font-size: 0.9em;
-}
-.badge.bg-info {
-    background-color: var(--bs-info) !important;
-    color: var(--bs-body-color) !important;
-    transition: transform 0.2s;
-}
-.badge.bg-info:hover {
-    transform: scale(1.05);
+    color: var(--color-text-light);
+    border-bottom: 2px solid var(--color-secondary);
 }
 
+/* Experience Timeline */
 .experience-entry {
-    border-left: 5px solid var(--bs-primary);
+    border-left: 5px solid var(--color-primary);
+    background-color: var(--color-secondary);
     border-radius: 0 0.5rem 0.5rem 0;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05) !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 .experience-entry .border-end {
-    border-color: var(--bs-primary) !important;
+    border-color: var(--color-primary) !important;
 }
+
+/* --- 5. Footer and Utilities --- */
 
 footer {
-    background-color: var(--bs-secondary);
-    color: var(--bs-light);
-    padding: 1.5rem 0;
+    text-align: center;
     font-size: 0.9rem;
-    margin-top: 0; 
-}
-footer a {
-    color: var(--bs-primary);
-    text-decoration: none;
-}
-footer a:hover {
-    color: var(--bs-light);
+    background-color: var(--color-secondary);
+    border-top: 1px solid var(--color-primary);
 }
 
-.text-primary { color: var(--bs-primary) !important; }
+footer .fa-brands:hover {
+    transform: scale(1.2);
+    color: var(--color-text-light);
+}
+
+footer a {
+    color: var(--color-primary);
+    transition: color 0.3s ease;
+}
+footer a:hover {
+    color: var(--color-text-light);
+}
+/* Ensure utility classes use the dark palette */
+.text-primary { color: var(--color-primary) !important; }
 .btn-primary {
-    --bs-btn-bg: var(--bs-primary);
-    --bs-btn-border-color: var(--bs-primary);
+    --bs-btn-bg: var(--color-primary);
+    --bs-btn-border-color: var(--color-primary);
     --bs-btn-hover-bg: #008D93;
     --bs-btn-hover-border-color: #008D93;
 }
-.text-secondary { color: var(--bs-secondary) !important; }
-.bg-light { background-color: var(--bs-light) !important; }
 
-#about img {
-    border: 5px solid var(--bs-primary);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+.text-primary, .navbar-brand, .fa-brands, .btn-primary {
+    text-shadow: 0 0 8px rgba(0, 173, 181, 0.5);
 }
+
+a:hover, .btn-primary:hover {
+    transform: scale(1.03);
+    text-shadow: 0 0 10px var(--color-primary);
+}
+
+input:focus, textarea:focus {
+    border: 1px solid var(--color-primary);
+    box-shadow: 0 0 10px rgba(0, 173, 181, 0.2);
+}
+
+/* CONTACT PAGE */
+#contact-page {
+    background: linear-gradient(180deg, rgba(34,40,49,.08) 0%, rgba(34,40,49,0) 40%);
+    padding-top: 96px;
+    padding-bottom: 96px;
+}
+
+#contact-page h1 {
+    color: var(--color-text-light);
+    font-weight: 700;
+    letter-spacing: .5px;
+}
+
+#contact-page .lead {
+    color: var(--color-text-muted);
+    max-width: 56ch;
+    margin: 0 auto 2rem;
+}
+
+/* Card-like form container */
+#contact-page form {
+    background: var(--color-background);
+    border: 1px solid var(--color-secondary) !important;
+    box-shadow: 0 8px 24px rgba(0,0,0,.25);
+}
+
+/* Inputs on dark theme */
+#contact-page .form-control {
+    background: #1d232b;
+    border: 1px solid var(--color-secondary);
+    color: var(--color-text-light);
+    padding: .9rem 1rem;
+    border-radius: .75rem;
+}
+
+#contact-page .form-control::placeholder { color: #7f8a95; }
+
+#contact-page .form-control:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 .25rem rgba(0,173,181,.15);
+    background: #1a2027;
+    color: var(--color-text-light);
+}
+
+#contact-page label { color: var(--color-text-muted); }
+
+#contact-page .btn.btn-primary {
+    padding: .8rem 1.25rem;
+    border-radius: .9rem;
+    font-weight: 600;
+    box-shadow: 0 6px 16px rgba(0,173,181,.25);
+}
+#contact-page .btn.btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 22px rgba(0,173,181,.32);
+}
+
+/* “Direct Information” block */
+#direct-contact h2 { color: var(--color-text-light); }
+#direct-contact p { color: var(--color-text-muted); }
+#direct-contact a { color: var(--color-primary); }
+#direct-contact a:hover { color: var(--color-text-light); }
+
 
 @media (max-width: 767.98px) {
     .experience-entry .border-end {

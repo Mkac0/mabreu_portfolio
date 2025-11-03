@@ -1,13 +1,12 @@
 {% load static %}
 
-<!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLMDJ8u76oR1d/Nf2vYx4h9a+oK6x8P5G/pX6w/T4F6E6f1P4R/b6uV0/a9/F9aA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-        <link rel="stylesheet" href="{% static 'css/base.css' %}?v=1" /> 
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="{% static 'css/base.css' %}?v=2" /> 
         <title>{% block title %}Melissa Abreu{% endblock title %}</title>
         {% block head %} 
         {% endblock head %}
@@ -48,10 +47,15 @@
             {% endblock content %}
         </main>
         <footer class="text-center">
-            <div class="container">
-                &copy; 2025 Melissa Abreu. Built with <a href="https://www.djangoproject.com/" target="_blank">Django</a>.
+            <div class="container py-3">
+                    <a href="https://github.com/Mkac0" target="_blank" class="mx-3 fs-3"><i class="fa-brands fa-github"></i></a>
+                    <a href="https://www.linkedin.com/in/melissaabreu-profile" target="_blank" class="mx-3 fs-3">
+                    <a href="mailto:melissa.abreu84@gmail.com" class="mx-3 fs-3"><i class="fa-solid fa-envelope"></i></a>
+            </div>
+            <div class="container pb-3">
+                &copy; 2025 Melissa Abreu. Built with Django.
             </div>
         </footer>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     </body>
 </html>

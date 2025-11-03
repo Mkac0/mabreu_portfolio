@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Project, Skill, Experience
+from .models import Project, Skill, Education, Experience
 from django.core.mail import send_mail
 from django.contrib import messages
 from .forms import ContactForm
@@ -42,9 +42,11 @@ def about(request):
 def resume(request):
     """Fetches and displays all professional experience."""
     work_experience = Experience.objects.all().order_by('-start_date')
+    education_records = Education.objects.all().order_by('-end_date')
     context = {
         'page_title': 'Work Experience & Résumé',
         'experiences': work_experience,
+        'education': education_records,
     }
     return render(request, 'portfolio/resume.html', context)
 

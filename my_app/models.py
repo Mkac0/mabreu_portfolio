@@ -33,6 +33,22 @@ class Skill(models.Model):
     def __str__(self):
         return self.name
 
+class Education(models.Model):
+    institution = models.CharField(max_length=200)
+    degree = models.CharField(max_length=200)
+    major = models.CharField(max_length=200, blank=True, null=True)
+    start_date = models.DateField()
+    end_date = models.DateField(blank=True, null=True)
+    gpa = models.DecimalField(max_digits=3, decimal_places=2, blank=True, null=True)
+    description = models.TextField(blank=True, help_text="List relevant coursework or honors.")
+
+    class Meta:
+        ordering = ['-end_date', '-start_date']
+        verbose_name_plural = "Education Records"
+
+    def __str__(self):
+        return f"{self.degree} at {self.institution}"
+
 class Experience(models.Model):
     title = models.CharField(max_length=100, help_text="Job Title or Position")
     company = models.CharField(max_length=100, help_text="Company or Institution Name")

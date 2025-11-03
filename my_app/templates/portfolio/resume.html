@@ -6,13 +6,56 @@
 {% block content %}
     <section id="resume-header" class="py-5 bg-light">
         <div class="container text-center">
-            <h1 class="display-4">My Professional Experience</h1>
-            <p class="lead text-muted">A detailed overview of my career milestones and technical contributions.</p>
+            <h1 class="display-4">Resume</h1>
+            <p class="lead text-muted">
+                A detailed overview of my career milestones and technical contributions.
+                Economics grad turned full-stack developer — passionate about building practical, data-driven apps that make life a little easier.
+            </p>
             <a href="{% static 'docs/melissa_abreu_resume.pdf' %}" target="_blank" class="btn btn-primary mt-3">
                 <i class="fas fa-download me-2"></i> Download PDF Résumé
             </a>
         </div>
     </section>
+
+    <h2 class="text-center mb-5 text-primary">Education</h2>
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                {% if education %}
+                    {% for record in education %}
+                        <div class="card mb-4 shadow-sm experience-entry">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-4 text-md-end border-end">
+                                        <p class="mb-0 fw-bold">
+                                            {{ record.start_date|date:"F Y" }} - 
+                                            {% if record.end_date %}{{ record.end_date|date:"F Y" }}{% else %}Present{% endif %}
+                                        </p>
+                                        <p class="mb-0 text-muted small">{{ record.institution }}</p>
+                                        {% if record.gpa %}
+                                            <p class="mb-0 text-muted small">GPA: {{ record.gpa }}</p>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-md-8 ps-md-4">
+                                        <h4 class="card-title mt-2 mt-md-0">{{ record.degree }}</h4>
+                                        <p class="text-secondary">{{ record.major }}</p>
+                                        {% if record.description %}
+                                            <div class="description text-secondary">
+                                                {{ record.description|linebreaksbr }}
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p class="lead text-center text-muted">No education records found.</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <hr class="my-5">
+
     <section id="work-experience" class="py-5">
         <div class="container">
             <h2 class="mb-4">Work History</h2>
@@ -49,15 +92,6 @@
             {% else %}
                 <p class="lead text-center">No professional experience added yet.</p>
             {% endif %}
-        </div>
-    </section>
-    <section id="education" class="py-5 bg-light">
-        <div class="container">
-            <h2 class="mb-4">Education</h2>
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    </div>
-            </div>
         </div>
     </section>
 

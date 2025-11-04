@@ -1,11 +1,9 @@
-/* --- 1. Variables and Global Reset --- */
 :root {
-    /* Updated Dark Theme Palette */
-    --color-background: #222831; /* Deep Charcoal - Main Background */
-    --color-primary: #00ADB5;     /* Vibrant Teal - Accent/Link */
-    --color-secondary: #393E46;   /* Dark Slate - Card Background/Hover */
-    --color-text-light: #EEEEEE;  /* Off-White - Main Text */
-    --color-text-muted: #A9A9A9;  /* Gray - Muted Text */
+    --color-background: #222831;
+    --color-primary: #00ADB5;
+    --color-secondary: #393E46;
+    --color-text-light: #EEEEEE; 
+    --color-text-muted: #A9A9A9;
     --bs-body-bg: var(--color-background);
     --bs-body-color: var(--color-text-light);
     --bs-primary: var(--color-primary);
@@ -18,14 +16,14 @@ html {
 }
 
 body {
-    font-family: 'Poppins', sans-serif; /* Use the new font */
+    font-family: 'Poppins', sans-serif;
     color: var(--color-text-light);
     background-color: var(--color-background);
     padding-top: 56px; 
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-weight: 600; /* Slightly less heavy heading */
+    font-weight: 600;
     color: var(--color-text-light);
 }
 
@@ -38,8 +36,6 @@ p, li {
     font-weight: 300;
 }
 
-/* --- 2. Navigation Styling (Minimalist) --- */
-
 header {
     background-color: transparent; 
     padding: 0;
@@ -49,7 +45,7 @@ header {
 
 .navbar {
     background-color: var(--color-background) !important;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4); /* Subtle dark shadow */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
     border-bottom: 1px solid var(--color-secondary);
     backdrop-filter: saturate(120%) blur(4px);
 }
@@ -68,15 +64,13 @@ header {
     color: var(--color-primary) !important;
 }
 
-/* --- 3. Section and Content Styling --- */
-
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(14px); }
   to   { opacity: 1; transform: none; }
 }
 
 section {
-  opacity: 1;                /* visible by default */
+  opacity: 1;
   transform: none;
   animation: fadeUp .6s ease both;
 }
@@ -90,11 +84,10 @@ section.visible {
     transform: translateY(0);
 }
 
-/* Hero Section Typography */
 #about h1 {
     font-size: 3.5rem;
     font-weight: 700;
-    color: var(--color-primary); /* Highlight name */
+    color: var(--color-primary);
 }
 #about p {
     color: var(--color-text-muted);
@@ -102,10 +95,8 @@ section.visible {
 #about img {
     border: 5px solid var(--color-primary);
     box-shadow: 0 0 30px rgba(0, 173, 181, 0.25);
-    border-radius: 50%; /* Circular image for a softer look */
+    border-radius: 50%;
 }
-
-/* --- 4. Skills and Project Cards (Minimalist/Flat) --- */
 
 .project-card {
     background-color: var(--color-secondary);
@@ -141,10 +132,9 @@ section.visible {
     gap: 2rem;
 }
 
-/* Skill Badges */
 .badge.bg-info {
     background-color: var(--color-primary) !important;
-    color: var(--color-background) !important; /* Dark text on bright badge */
+    color: var(--color-background) !important;
     font-weight: 600;
 }
 .skill-category h5 {
@@ -152,7 +142,6 @@ section.visible {
     border-bottom: 2px solid var(--color-secondary);
 }
 
-/* Experience Timeline */
 .experience-entry {
     border-left: 5px solid var(--color-primary);
     background-color: var(--color-secondary);
@@ -162,8 +151,6 @@ section.visible {
 .experience-entry .border-end {
     border-color: var(--color-primary) !important;
 }
-
-/* --- 5. Footer and Utilities --- */
 
 footer {
     text-align: center;
@@ -184,7 +171,7 @@ footer a {
 footer a:hover {
     color: var(--color-text-light);
 }
-/* Ensure utility classes use the dark palette */
+
 .text-primary { color: var(--color-primary) !important; }
 .btn-primary {
     --bs-btn-bg: var(--color-primary);
@@ -207,7 +194,6 @@ input:focus, textarea:focus {
     box-shadow: 0 0 10px rgba(0, 173, 181, 0.2);
 }
 
-/* CONTACT PAGE */
 #contact-page {
     background: linear-gradient(180deg, rgba(34,40,49,.08) 0%, rgba(34,40,49,0) 40%);
     padding-top: 96px;
@@ -226,14 +212,12 @@ input:focus, textarea:focus {
     margin: 0 auto 2rem;
 }
 
-/* Card-like form container */
 #contact-page form {
     background: var(--color-background);
     border: 1px solid var(--color-secondary) !important;
     box-shadow: 0 8px 24px rgba(0,0,0,.25);
 }
 
-/* Inputs on dark theme */
 #contact-page .form-control {
     background: #1d232b;
     border: 1px solid var(--color-secondary);
@@ -264,12 +248,25 @@ input:focus, textarea:focus {
     box-shadow: 0 10px 22px rgba(0,173,181,.32);
 }
 
-/* “Direct Information” block */
 #direct-contact h2 { color: var(--color-text-light); }
 #direct-contact p { color: var(--color-text-muted); }
 #direct-contact a { color: var(--color-primary); }
 #direct-contact a:hover { color: var(--color-text-light); }
 
+#contact-page {
+  background: var(--color-background);
+}
+
+#contact-page h1 {
+  color: var(--color-primary);
+  opacity: 1;
+  text-shadow: 0 2px 12px rgba(0,0,0,.35);
+  font-weight: 800;
+  letter-spacing: .3px;
+  margin-bottom: 1rem;
+}
+
+#contact-page .lead { color: var(--color-text-muted); }
 
 @media (max-width: 767.98px) {
     .experience-entry .border-end {
